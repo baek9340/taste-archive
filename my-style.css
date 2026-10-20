@@ -1,0 +1,398 @@
+/* ═══ 모듈형 · 내 스타일 — 틈과 구석 ═══
+   여섯 줄(공통) + 한 줄(이 시스템 고유: 모서리 표식). 따옴표 없이 쓴다. 저장 후 새로고침. */
+
+:root {
+  /* ① 바탕 색 — 불을 끈 방의 어둑한 갈색. 짙어서 선·글자가 밝게 뒤집힌다 */
+  --my-bg: #16120F;
+
+  /* ② 포인트 색 — 작은 등의 빛. + 점 · 머무는 조건 면 · 사진 위 글자 */
+  --my-point: #B48C66;
+
+  /* ③ 서체 짝 — 전부 명조. 조용하고 느리게 읽히도록 */
+  --my-type: serif;
+
+  /* ④ 움직임 — 기본(은은하게 펼쳐짐) */
+  --my-motion: 1;
+
+  /* ⑤ 밀도 — 비움. 섹션 사이를 더 넓게 비워 숨 쉴 틈을 둔다 */
+  --my-density: 0;
+
+  /* ⑥ 이미지 — 첫 화면 사진을 어둡게 눌러 제목을 띄움(기본) */
+  --my-image: native;
+
+  /* ⑦ 고유 — 모서리 표식 크기 */
+  --mo-mark: 0;   /* 모서리 도트 전부 끔 — 선만 */
+}
+
+/* ── 추가 커스텀 ── */
+/* 세부 판을 정사각으로: 세로 사진 속 '가구와 벽 사이'가 잘리지 않게. 화면 높이를 넘지 않도록 폭을 제한 */
+.mo-board { aspect-ratio: 1 / 1; max-width: min(100%, 82vh); }
+@media (max-width: 768px) {
+  .mo-board { aspect-ratio: 1 / 1; height: auto; max-width: 100%; }
+}
+
+/* 첫 화면 제목 — 작게, 세 줄, 가운데 정렬, 화면 한가운데. 타자 효과(type.js) */
+.mo-hero-in { margin: auto; text-align: center; }
+.mo-hero .mo-h1 { font-size: clamp(17px, 1.7vw, 25px) !important; line-height: 1.7; letter-spacing: 0; text-wrap: initial; text-shadow: 0 0 28px rgba(0,0,0,.65); }
+.tg-line { display: block; }
+.tg-type.is-typing .tg-ch { opacity: 0; }
+.tg-type.is-typing .tg-ch.is-on { opacity: 1; }
+.tg-caret { display: inline-block; position: relative; width: 0; height: 1em; vertical-align: -.12em; }
+.tg-caret::after { content: ""; position: absolute; left: 2px; top: 0; bottom: 0; width: 1px; background: currentColor; animation: tg-blink 1.05s steps(1) infinite; }
+@keyframes tg-blink { 50% { opacity: 0; } }
+
+/* 소개 — 큰 문장 하나 + 세 단(제목 · 글 · 번호), 레퍼런스처럼 넓게 비워서 */
+/* 문장 두 줄 — 오른쪽 2/3(2·3단)을 꽉 채운다. 긴 첫 줄이 칸 폭에 맞도록 크기를 칸 폭에서 계산(최대는 다른 섹션 문장과 같은 크기) */
+.tg-intro .mo-sec-r { container-type: inline-size; }
+.tg-lead { max-width: none; font-size: min(var(--mo-h2), calc(100cqw / 38.6)); }
+.tg-lead-l { display: block; white-space: nowrap; }
+@media (max-width: 768px) { .tg-lead { font-size: var(--mo-h2); } .tg-lead-l { white-space: normal; } }
+.tg-cols { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;   /* 섹션 격자(1/3 · 2/3)와 같은 3단 — 둘째 단이 위 문장과 같은 선에서 시작 */
+   margin: 160px 0 0; padding: 0; list-style: none; }
+.tg-col { position: relative; display: flex; flex-direction: column; padding: 18px var(--mo-gut) 0 0; }
+.tg-col::before { content: ""; position: absolute; left: 0; right: var(--mo-gut); top: 0; border-top: var(--mo-line) solid color-mix(in srgb, var(--mo-ink) 22%, transparent); }
+.tg-col-t { font: var(--mo-w-head) var(--mo-p)/1.3 var(--mo-f-head); margin-bottom: 64px; }
+.tg-col-p { font: 400 15px/1.8 "Pretendard Variable", Pretendard, sans-serif; max-width: 21em; opacity: .72; }
+.tg-intro-fig { grid-column: 2; margin-top: 200px; }
+@media (max-width: 1024px) {
+  .tg-col-p { max-width: none; }
+}
+@media (max-width: 768px) {
+  .tg-cols { grid-template-columns: 1fr; row-gap: 48px; margin-top: 56px; }
+  .tg-col { padding-right: 0; } .tg-col::before { right: 0; }
+  .tg-col-t { margin-bottom: 20px; }
+  .tg-intro-fig { grid-column: 1; margin-top: 56px; }
+}
+
+/* 틈을 가까이 — + 점 설명 카드: 제목·본문 크기를 '좋아하는 공간'의 단 제목·본문과 같게, 본문은 Pretendard */
+.mo-card h4 { font: var(--mo-w-head) var(--mo-p)/1.3 var(--mo-f-head); }
+.mo-card p { font: 400 15px/1.8 "Pretendard Variable", Pretendard, sans-serif; }
+
+/* ═══ 상단 바 — huts.com 참고 ═══
+   투명 → 내리면 어둑한 유리 면 · + 메뉴는 아래로 큰 판(둥근 아래 모서리) · 등빛 알약 버튼 · 내리면 숨고 올리면 돌아옴 */
+.hn { --hn-ease: cubic-bezier(.33, 1, .68, 1); --hn-sans: "Pretendard Variable", Pretendard, sans-serif;
+  position: fixed; left: 0; right: 0; top: 0; z-index: 20; color: var(--mo-pale);
+  transition: transform .5s var(--hn-ease), background-color .3s var(--hn-ease), border-radius .4s var(--hn-ease), color .3s var(--hn-ease); }
+.hn-bar { display: flex; align-items: center; gap: 32px; padding: 20px var(--mo-gut); }
+.hn-logo { font: 600 22px/1 var(--mo-f-head); letter-spacing: -.01em; }
+.hn-nav { margin-left: auto; display: flex; align-items: center; gap: 30px; }
+.hn-link { display: inline-flex; align-items: center; gap: 8px; font: 500 14px/1 var(--hn-sans); color: inherit; opacity: .82; transition: opacity .2s; padding: 8px 0; }
+.hn-link:hover, .hn-link[aria-expanded="true"] { opacity: 1; }
+/* (틈 보러 가기 알약 버튼은 다른 메뉴와 같은 글자 링크 '틈'으로 바꿈) */
+.hn-burger { display: none; margin-left: auto; font: 500 14px/1 var(--hn-sans); color: inherit; padding: 10px 18px; border: 1px solid currentColor; border-radius: 999px; }
+
+/* 내리면 · 판이 열리면: 어둑한 유리 면 */
+.hn.is-solid, .hn.is-open, .hn.is-mopen { color: var(--mo-ink); background: color-mix(in srgb, var(--mo-paper) 86%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.hn.is-solid:not(.is-open):not(.is-mopen) { box-shadow: 0 1px 0 color-mix(in srgb, var(--mo-ink) 10%, transparent); }
+.hn.is-open, .hn.is-mopen { background: color-mix(in srgb, var(--mo-paper) 96%, transparent); box-shadow: 0 1px 0 color-mix(in srgb, var(--mo-ink) 14%, transparent); }
+.hn.is-hidden { transform: translateY(-100%); }
+.hn:not(.is-solid):not(.is-open):not(.is-mopen) { text-shadow: 0 0 18px rgba(0, 0, 0, .45); }
+
+/* 하위 메뉴 판 — ballance 하위 메뉴(이미지 없이): 작은 묶음 이름 + 글자 목록 세 단(기준 · 방 · 틈) — 사이트 3단 격자와 같은 폭 · 1px 선 · 직각 */
+.hn-panel { padding: 0 var(--mo-gut) 44px; animation: hn-in .45s var(--hn-ease); }
+.hn-panel[hidden], .hn-m[hidden] { display: none; }
+@keyframes hn-in { from { opacity: 0; transform: translateY(-6px); } }
+.hn-cols { display: grid; grid-template-columns: repeat(3, 1fr); padding-top: 26px; border-top: 1px solid color-mix(in srgb, var(--mo-ink) 14%, transparent); }
+.hn-col { padding-right: var(--mo-gut); opacity: .4; transition: opacity .3s var(--hn-ease); }
+.hn-col.is-focus { opacity: 1; }
+.hn-col-t { font: 500 12px/1 var(--hn-sans); letter-spacing: .14em; opacity: .55; margin-bottom: 22px; }
+.hn-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.hn-col a { display: inline-flex; align-items: center; gap: 10px; font: 400 15px/1.4 var(--hn-sans); transition: color .25s; }
+.hn-col a::after { content: "→"; opacity: 0; transform: translateX(-6px); transition: opacity .25s, transform .3s var(--hn-ease); }
+.hn-col a:hover { color: var(--mo-point); }
+.hn-col a:hover::after { opacity: 1; transform: none; }
+.hn-chip { font: 500 11px/1 var(--hn-sans); letter-spacing: .06em; padding: 5px 7px; color: var(--mo-ink); background: color-mix(in srgb, var(--mo-ink) 12%, transparent); }
+/* 판이 열리면 뒤 페이지는 흐리고 어둡게 */
+.hn-veil { position: fixed; inset: 0; z-index: 19; background: rgba(8, 6, 5, .5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none; transition: opacity .4s var(--hn-ease); }
+.hn-veil.is-on { opacity: 1; pointer-events: auto; }
+
+/* 모바일: 메뉴 버튼 하나 → 목록 */
+.hn-m { padding: 4px var(--mo-gut) 28px; animation: hn-in .4s var(--hn-ease); }
+.hn-m a { display: block; padding: 16px 0; font: 600 22px/1.2 var(--mo-f-head); border-top: 1px solid color-mix(in srgb, var(--mo-ink) 12%, transparent); }
+@media (max-width: 768px) {
+  .hn-bar { padding: 16px var(--mo-gut); }
+  .hn-nav, .hn-panel { display: none !important; }
+  .hn-burger { display: inline-block; }
+}
+@media (min-width: 769px) { .hn-m { display: none !important; } }
+
+/* ═══ 머무는 조건 — 줄노트 한 장 ═══
+   섹션 바탕은 페이지와 같은 어둠, 그 위에 등빛 종이 한 장. 1px 선만으로 칸을 나눈다.
+   줄은 배경 그라디언트라 문장이 줄바꿈되어도 글자가 늘 줄 위에 앉는다 */
+.nt-sec { background: var(--mo-paper); align-items: start; }
+.nt { --nt-l: 54px; --nt-rule: color-mix(in srgb, var(--mo-ink) 55%, transparent); --nt-sans: "Pretendard Variable", Pretendard, sans-serif;
+  display: grid; grid-template-columns: 56px 1fr; background: var(--mo-steel); color: var(--mo-ink); border: 1px solid var(--nt-rule);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6); }
+.nt-side { display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 22px 0; border-right: 1px solid var(--nt-rule);
+  font: 600 13px/1 var(--nt-sans); letter-spacing: .08em; }
+.nt-side span { writing-mode: vertical-rl; }
+.nt-main { display: flex; flex-direction: column; min-width: 0; }
+.nt-head { display: flex; align-items: flex-end; justify-content: flex-end; gap: 18px; height: calc(var(--nt-l) * 2); padding: 0 24px 14px; border-bottom: 1px solid var(--nt-rule); }
+.nt-head-s { font: 600 14px/1 var(--nt-sans); letter-spacing: .1em; padding-bottom: 10px; }
+.nt-head-n { font: 600 64px/.85 var(--nt-sans); letter-spacing: -.03em; }
+.nt-lines { background: repeating-linear-gradient(to bottom, transparent 0 calc(var(--nt-l) - 1px), var(--nt-rule) calc(var(--nt-l) - 1px) var(--nt-l)); }
+.nt-lines p { padding: 0 24px; font: 500 17px/var(--nt-l) var(--nt-sans); word-break: keep-all; }
+.nt-lines .nt-gap { height: var(--nt-l); }
+.nt-lines .nt-key { font-family: var(--mo-f-head); font-weight: 600; }
+.nt-foot { display: flex; justify-content: space-between; gap: 20px; padding: 18px 24px 22px; font: 500 13px/1.6 var(--nt-sans); opacity: .85; }
+@media (max-width: 768px) {
+  .nt { --nt-l: 44px; grid-template-columns: 40px 1fr; }
+  .nt-head { height: calc(var(--nt-l) * 2); padding: 0 16px 10px; }
+  .nt-head-n { font-size: 48px; }
+  .nt-lines p { padding: 0 16px; font-size: 15px; }
+  .nt-foot { padding: 14px 16px 18px; font-size: 12px; }
+}
+
+/* ═══ 글자 통일 — 모든 서브 타이틀 = '어둑한', 모든 본문 = '불은 하나면 충분하다' ═══ */
+:root {
+  --ty-sub: 600 18px/1.3 var(--mo-f-head);                                            /* 명조 600 · 18px — 모바일도 18px 고정(본문보다 작아지지 않게) */
+  --ty-gap: 36px;                                                                     /* 서브타이틀 → 본문 간격(어둑한 64 · 빛은 한 점만 14 의 중간쯤) */
+  --ty-body: 400 15px/1.8 "Pretendard Variable", Pretendard, sans-serif;              /* Pretendard 400 · 15px */
+  --ty-body-op: .72;
+}
+/* 서브 타이틀: 좋아하는 공간 단 제목 · 기준 단계 · 방 이름 · 틈 장면 탭 · + 카드 제목 · 메뉴 판 카드 · 노트 마지막 문장
+   (열린 모듈 제목이 22px로 커지던 것도 18px로 고정 — 열림은 본문이 펼쳐지는 것으로만 보인다) */
+.tg-col-t, .mo-mod-btn, .mo-mod.is-open > h3 .mo-mod-btn, .mo-step.is-open .mo-mod-btn,
+.mo-tab, .mo-tab.is-on, .mo-card h4, .nt-lines .nt-key { font: var(--ty-sub); }
+/* 본문: 좋아하는 공간 단 글 · 기준 단계 설명 · 방 설명 · + 카드 설명 · 끝줄 작은 글 */
+.tg-col-p, .mo-mod-in, .mo-mod-in p, .mo-card p, .mo-foot-note { font: var(--ty-body); }
+.tg-col-p, .mo-steps .mo-mod-in p, .mo-card p, .mo-foot-note { opacity: var(--ty-body-op); }
+/* 노트 줄 문장: 글꼴·크기는 본문과 같게, 줄 간격만 노트 줄 높이를 따른다 */
+.nt-lines p:not(.nt-key) { font: var(--ty-body); font-family: "Noto Serif KR", serif; line-height: var(--nt-l); }   /* 노트 문장은 명조 */
+.nt-lines .nt-key { line-height: var(--nt-l); }
+
+
+/* 공간 → 기준 사이 사진: 천천히 겹쳐 바뀌며 아주 느리게 다가온다(slides.js) */
+.tg-slides { position: relative; }
+.tg-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.1s ease; }   /* 겹침도 중간 길이 */
+.tg-slide.is-on { opacity: 1; }
+.tg-slide.is-on, .tg-slide.is-out { animation: tg-drift 4.4s linear forwards; }
+@keyframes tg-drift { from { transform: scale(1); } to { transform: scale(1.045); } }
+
+/* 틈을 가까이 — + 설명 카드를 맨 위 층으로.
+   원래 열린 장면이 z-index:1 층을 따로 만들어 그 안의 카드(z 5)가 장면 탭(z 2) 밑에 깔렸다.
+   열린 장면의 층을 풀어 카드·점이 판 전체에서 탭보다 위에 서게 한다(닫힌 장면은 투명·누름 없음이라 순서 무관) */
+.mo-scene.is-on { z-index: auto; }
+.mo-card { z-index: 6; }
+
+/* ═══ 선 정리 — 세로선 없음, 필요한 곳에만 가로선 (레퍼런스: 스위스식 목록 — 항목 아래 가는 줄 하나) ═══ */
+:root { --rule: color-mix(in srgb, var(--mo-ink) 22%, transparent); --rule-soft: color-mix(in srgb, var(--mo-ink) 12%, transparent); }
+
+/* 상자 테두리·모서리 조각을 모두 걷는다 */
+.mo-mod, .mo-tab, .mo-card, .mo-box, .mo-cell { border: 0; }
+.mo-mod::before, .mo-mod::after, .mo-tab::before, .mo-tab::after, .mo-card::before, .mo-card::after,
+.mo-box::before, .mo-box::after, .mo-cell::before, .mo-cell::after { display: none; }
+
+/* 목록(소개·기준·방): 항목 아래 가는 가로줄 하나. 글은 격자선에 바로 붙는다(좌우 안쪽 여백 없음) */
+.mo-mods > .mo-mod { border-bottom: 1px solid var(--rule); margin: 0; padding: 14px 0; }
+.mo-mod:not(.mo-step) > h3 .mo-mod-btn { margin: -14px 0; padding: 14px 0; width: 100%; }
+/* 방(사진 위 흐린 유리): 사진 위라 안쪽 여백은 남긴다 */
+.mo-stage .mo-mods > .mo-mod { padding: 14px 18px; border-bottom-color: color-mix(in srgb, var(--mo-pale) 35%, transparent); }
+.mo-stage .mo-mod:not(.mo-step) > h3 .mo-mod-btn { margin: -14px -18px; padding: 14px 18px; width: calc(100% + 36px); }
+
+/* 틈 장면 탭: 위에 가는 가로줄, 탭 사이 세로선 대신 간격 */
+.mo-tabs { gap: 16px; }
+.mo-tab { margin-left: 0; border-top: 1px solid var(--mo-lc); opacity: .6; transition: opacity .3s; }
+.mo-tab.is-on { opacity: 1; }
+
+/* 머무는 조건 노트: 바깥 세로선·띠 세로선 제거, 위아래 가로줄만 */
+.nt { border: 0; border-top: 1px solid var(--nt-rule); border-bottom: 1px solid var(--nt-rule); }
+.nt-side { border-right: 0; }
+
+/* 모바일 메뉴 버튼: 알약 테두리 대신 밑줄 */
+.hn-burger { border: 0; border-bottom: 1px solid currentColor; border-radius: 0; padding: 8px 0; }
+
+/* 섹션 사이: 가장자리 여백 안쪽으로 가는 가로줄 하나 */
+.mo-sec:not(.mo-sec-head), .mo-series > .mo-sec-head, .nt-sec {
+  background-image: linear-gradient(var(--rule-soft), var(--rule-soft));
+  background-size: calc(100% - var(--mo-gut) * 2) 1px; background-position: var(--mo-gut) 0; background-repeat: no-repeat; padding-top: 28px; }
+
+/* ═══ 기준 — 열린 단계의 사진이 박스 오른쪽 절반을 꽉 채우고, 위 가로줄 아래에서 시작한다 ═══ */
+.mo-step { padding: 0; }
+.mo-step > h3 .mo-mod-btn { padding: 14px 0; }
+.mo-step .mo-mod-in { padding: 0 var(--mo-gut) 0 0; }
+.mo-step-fig { margin: 14px 0; position: relative; }
+.mo-step.is-open > .mo-step-fig { align-self: stretch; }
+.mo-step-fig img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; }
+@media (max-width: 768px) {
+  .mo-step .mo-mod-in { padding: 0; }
+  .mo-step .mo-mod-in .mo-step-fig { margin: 10px 0 14px; }
+}
+
+/* 어둑한 방 세 곳 — 배경 사진을 자르는 창을 조금 아래로(가운데 50% → 65%) */
+.mo-stage-figs .mo-bg img { object-position: 50% 65%; }
+
+/* ═══ 수정 묶음 ═══ */
+
+/* 1. 상단 바 이름 크게 */
+.hn-logo { font-size: 28px; }
+@media (max-width: 768px) { .hn-logo { font-size: 24px; } }
+
+/* 2. 기준 번호(01·02·03) 지움 */
+.mo-num { display: none; }
+
+/* 3. 아코디언 힌트 — 제목 줄 오른쪽 끝에 꺾쇠. 닫힘 = 아래(∨), 열림 = 위(∧) */
+.mo-steps .mo-mod-btn, .mo-stage .mo-mod-btn { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.mo-steps .mo-mod-btn::after, .mo-stage .mo-mod-btn::after { content: ""; flex: none; width: 8px; height: 8px; margin-right: 3px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .7;
+  transform: translateY(-3px) rotate(45deg); transition: transform .45s var(--mo-ease-out), opacity .3s; }
+.mo-mod-btn:hover::after { opacity: 1; }
+.mo-step.is-open .mo-mod-btn::after, .mo-stage .mo-mod.is-open .mo-mod-btn::after { transform: translateY(2px) rotate(-135deg); }
+/* 기준: 제목 줄이 박스 전체 폭(꺾쇠가 오른쪽 끝), 글과 사진은 그 아래 줄에 반반 */
+.mo-step > h3 { grid-column: 1 / -1; grid-row: 1; }
+.mo-step > .mo-mod-body { grid-column: 1; grid-row: 2; }
+.mo-step > .mo-step-fig { grid-column: 2; grid-row: 2; margin: calc(var(--ty-gap) - 14px) 0 14px; }
+
+/* 4. 타이포 통일 — 서브타이틀 18px · 본문 15px/1.8 · 서브타이틀→본문 36px · 본문 불투명도 72% */
+.tg-col-t { margin-bottom: var(--ty-gap); }
+.mo-step .mo-mod-in > p:first-of-type { margin-top: calc(var(--ty-gap) - 14px); }   /* 제목 버튼 아래 여백 14px + 22px (안쪽 글에 줘서 닫히면 함께 접힌다) */
+.mo-step:not(.is-open) > .mo-step-fig { margin: 0; }                                 /* 닫힌 단계는 사진 여백도 0 */
+.mo-steps > .mo-step { padding: 0; }                                                 /* 목록 줄 여백(14px)은 제목 버튼이 이미 가짐 — 이중 여백 제거 */
+.mo-card h4 { margin-bottom: var(--ty-gap); }
+.mo-stage .mo-mod-in::before { height: calc(var(--ty-gap) - 10px); }      /* 방(사진 위): 기본 10px + 간격 10px → 다른 곳과 같은 36px */
+.mo-mod-in p, .mo-card p, .tg-col-p, .mo-foot-note, .tg-sec-note { font: var(--ty-body); opacity: var(--ty-body-op); }
+
+/* 5. 왼쪽 단 = 섹션 이름 + 안내문(틈을 가까이 · 갤러리) */
+.tg-sec-l { padding-right: var(--mo-gut); }
+.tg-sec-note { margin-top: var(--ty-gap); max-width: 19em; }
+@media (max-width: 768px) { .tg-sec-l { padding-right: 0; } .tg-sec-note { margin-top: 16px; } }
+
+
+
+/* 8. 갤러리 — 사진 한 줄을 좌우로 넘겨 본다(gallery.js). 사진은 원래 비율, 높이만 같게.
+   줄은 오른쪽 화면 끝까지 흘러나가 '더 있다'는 걸 보여 주고, 아래에 가는 진행선 + ← 3 / 11 → */
+.tg-gal-sec .mo-sec-r { min-width: 0; }
+.tg-gallery { --g-h: clamp(260px, 50vh, 500px);
+  display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+  margin-right: calc(var(--mo-gut) * -1); padding-right: var(--mo-gut); scrollbar-width: none; cursor: grab; outline: none; }
+.tg-gallery::-webkit-scrollbar { display: none; }
+.tg-gallery.is-drag { cursor: grabbing; scroll-snap-type: none; }
+.tg-gallery.is-drag img { pointer-events: none; }
+.tg-gallery img { flex: none; display: block; width: auto; height: var(--g-h); aspect-ratio: auto; margin: 0; scroll-snap-align: start;
+  cursor: zoom-in; filter: brightness(.82); transition: filter .4s; user-select: none; -webkit-user-drag: none; }
+.tg-gallery img:hover { filter: brightness(1); transform: none; }
+.tg-gallery:focus-visible { box-shadow: 0 1px 0 var(--mo-point); }
+.tg-gal-ctl { display: flex; align-items: center; gap: 18px; margin-top: 22px; font: 400 13px/1 "Pretendard Variable", Pretendard, sans-serif; }
+.tg-gal-btn { font-size: 16px; line-height: 1; padding: 6px 2px; opacity: .8; transition: opacity .2s, transform .3s var(--mo-ease-out); }
+.tg-gal-btn:hover:not(:disabled) { opacity: 1; }
+.tg-gal-btn[data-dir="1"]:hover:not(:disabled) { transform: translateX(3px); }
+.tg-gal-btn[data-dir="-1"]:hover:not(:disabled) { transform: translateX(-3px); }
+.tg-gal-btn:disabled { opacity: .25; cursor: default; }
+.tg-gal-bar { flex: 1; height: 1px; background: var(--rule); position: relative; overflow: hidden; }
+.tg-gal-bar i { position: absolute; inset: 0; background: var(--mo-ink); transform-origin: left; transform: scaleX(.04); transition: transform .3s var(--mo-ease-out); }
+.tg-gal-n { min-width: 4.5em; text-align: right; font-variant-numeric: tabular-nums; opacity: .72; }
+@media (max-width: 768px) {
+  .tg-gallery { --g-h: 56vw; gap: 8px; }
+}
+
+/* 1. 기준 사진 — 천장은 낮게 · 창은 등 옆에: 자르는 창을 사진 아랫부분으로 */
+.mo-steps > .mo-step:nth-child(2) .mo-step-fig img,
+.mo-steps > .mo-step:nth-child(3) .mo-step-fig img { object-position: 50% 88%; }
+
+/* 3·4. 조건 노트 — 사이트 글자 체계와 통일
+   · 네 문장 = 본문 체계(15px · 72%) — 명조는 그대로, 줄 높이만 노트 줄을 따른다
+   · 마지막 문장 = 서브타이틀 체계(명조 600 · 18px · 100%)
+   · 구석 노트 · 조건 04 · 끝줄 메모 · 백하영 = 본문과 같은 72% */
+.nt-lines p:not(.nt-key) { font-size: 15px; opacity: var(--ty-body-op); }
+.nt-side-t, .nt-head, .nt-foot { opacity: var(--ty-body-op); }
+
+
+/* 첫 화면 배경 — 영상 '틈-배경'(assets/hero.mp4). 화면을 꽉 채우고, 영상이 뜨기 전에도 같은 어둠이 보이게 바탕색을 깐다.
+   위 덮개(40% 그늘)는 그대로 두어 제목이 떠 있게 */
+.mo-hero-vid { background: var(--my-bg); }
+.mo-hero-vid video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* 첫 화면 한 줄 — 제목 아래, 무엇을 모은 사이트인지(한글 검수 #2) */
+.mo-hero-sub { margin-top: 18px; font-size: 13px; line-height: 1.6; color: var(--mo-pale); opacity: .8; text-shadow: 0 0 20px rgba(0,0,0,.65); }
+
+/* ═══ 7주 2차 수정 (학생 요청 2026-10-20) ═══ */
+
+/* 메뉴 판 — 다섯 장 = 다섯 단 */
+.hn-cols { grid-template-columns: repeat(5, 1fr); }
+
+/* 2장 표지 — 5주 마지막 장(사진 위 왼쪽 아래 문장) 문법을 어둑한 무드로: 사진 채도를 낮추고 바탕색 그늘을 왼쪽 아래로 */
+.pp-cover { position: relative; min-height: 92vh; min-height: 92svh; margin-top: var(--mo-space); padding: var(--mo-gut);
+  display: flex; align-items: flex-end; overflow: hidden; color: var(--mo-ink); }
+.pp-cover-fig { position: absolute; inset: 0; margin: 0; }
+.pp-cover-fig img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 60%; filter: saturate(.7) brightness(.78); }
+.pp-cover::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(20deg, color-mix(in srgb, var(--mo-paper) 92%, transparent) 0%, color-mix(in srgb, var(--mo-paper) 45%, transparent) 42%, transparent 72%),
+              linear-gradient(180deg, var(--mo-paper) 0%, transparent 16%); }
+.pp-cover-in { position: relative; z-index: 1; max-width: 36em; }
+.pp-cover-label { font: var(--mo-w-head) var(--mo-label)/1.3 var(--mo-f-head); opacity: .7; }
+.pp-cover-t { font: var(--mo-w-head) clamp(44px, 6.4vw, 92px)/1.05 var(--mo-f-head); letter-spacing: -.02em; margin: 14px 0 22px; }
+.pp-cover-s { font: var(--ty-body); font-size: 17px; opacity: .85; }
+
+/* 2장 본문 — 왼쪽 글(아코디언) · 오른쪽 큰 사진이 겹쳐 바뀐다 */
+.pp-sec { display: grid; grid-template-columns: 1fr 2fr; gap: var(--mo-gap-l); align-items: start; padding: calc(var(--mo-space) / 2) var(--mo-gut) 0; }
+.pp-text { position: sticky; top: 110px; }
+.pp-text .mo-label { margin-bottom: var(--mo-gap-l); }
+.pp-no { flex: none; width: 2.4em; opacity: .5; font: 400 13px/1 "Pretendard Variable", Pretendard, sans-serif; font-variant-numeric: tabular-nums; }
+.pp-mods .mo-mod-btn { justify-content: flex-start; }
+.pp-mods .mo-mod-btn::after { margin-left: auto; }
+.pp-mods .mo-mod-in { padding-left: 2.4em; }
+.pp-stage { position: relative; margin: 0; height: 84vh; height: 84svh; min-height: 480px; overflow: hidden;
+  background: color-mix(in srgb, var(--mo-ink) 8%, transparent); }
+.pp-stage .tg-slide { object-position: 50% 45%; }
+
+/* 4장 물건 — 화면에 붙은 채 옆으로 흐르는 물건 줄 (5주 근거 사진 가로 섹션 문법, 어둑한 바탕 그대로) */
+.ob-sec { position: relative; margin-top: var(--mo-space); }
+.ob-mark { position: absolute; left: 0; width: 1px; height: 1px; }
+.ob-pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 44px; overflow: hidden; }
+.ob-head { display: grid; grid-template-columns: 1fr 2fr; gap: var(--mo-gap-l); padding: 0 var(--mo-gut); align-items: baseline; }
+.ob-head .mo-h2 { margin: 0; }
+.ob-view { overflow: hidden; }
+.ob-track { --ob-h: min(50vh, 38vw); display: flex; align-items: flex-start; gap: 72px; width: max-content; padding: 0 var(--mo-gut); will-change: transform; }
+.ob-item { display: flex; flex-direction: column; gap: 18px; }
+.ob-figs { display: flex; gap: 14px; align-items: flex-end; }
+.ob-figs img { display: block; width: auto; height: var(--ob-h); max-width: none; }
+.ob-figs .ob-sub { height: calc(var(--ob-h) * .62); }
+.ob-tall .ob-figs img { height: calc(var(--ob-h) * 1.08); }
+.ob-small .ob-figs img { height: calc(var(--ob-h) * .72); }
+.ob-cap { display: grid; grid-template-columns: 2.4em 1fr; max-width: 24em; }
+.ob-no { font: 400 13px/1.9 "Pretendard Variable", Pretendard, sans-serif; opacity: .5; font-variant-numeric: tabular-nums; }
+.ob-cap h3 { font: var(--ty-sub); margin: 0 0 10px; }
+.ob-cap p { grid-column: 2; font: var(--ty-body); opacity: var(--ty-body-op); margin: 0; }
+.ob-cap .ob-why { opacity: 1; margin-top: 4px; }
+
+/* 끝줄 — 다섯 장 단 + 사진 출처 한 줄 */
+.mo-foot-cols.ft-cols { grid-template-columns: repeat(5, auto); justify-content: start; column-gap: 48px; align-items: start; }
+.ft-cols .ft-t { display: inline-block; margin-bottom: 8px; opacity: 1; }
+.ft-cols a:not(.ft-t) { opacity: .65; }
+.ft-cols a:hover { opacity: 1; }
+.ft-credit { margin: 0; font-size: var(--mo-small); line-height: 1.6; opacity: .55; }
+
+@media (max-width: 768px) {
+  .hn-cols { grid-template-columns: 1fr; }
+  .pp-cover { min-height: 78svh; padding: 20px; margin-top: 80px; }
+  .pp-sec { grid-template-columns: 1fr; gap: 28px; padding: 80px var(--mo-gut) 0; }
+  .pp-text { position: static; }
+  .pp-stage { order: -1; height: auto; min-height: 0; aspect-ratio: 4 / 5; }
+  .ob-sec { margin-top: 80px; }
+  .ob-head { grid-template-columns: 1fr; gap: 12px; }
+  .ob-track { --ob-h: min(40svh, 64vw); gap: 40px; }
+  .ob-pin { gap: 28px; }
+  .ob-cap { max-width: 78vw; }
+  .mo-foot-cols.ft-cols { grid-template-columns: repeat(2, auto); row-gap: 24px; }
+}
+
+/* ═══ 7주 3차 수정 ═══ */
+/* 가져올 한 가지 — 사진 한 장뿐이라 다가오기 움직임 없이 그대로 */
+.pp-stage .tg-slide.is-still { animation: none; transform: none; }
+
+/* 첫 화면 — 떠 있는 사진 갤러리(floating.js). 영상 대신 바탕색 위에 사진 여덟 장, 가운데 글자는 그대로 */
+.mo-hero { background: var(--mo-paper); }
+.fg { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+.fg-plane { position: absolute; inset: 0; will-change: transform; }
+.fg img, .fg img.mo-ld { position: absolute; display: block; height: auto; max-width: none; filter: brightness(.78) saturate(.85);
+  opacity: 0; transition: opacity 1.4s ease; }
+.fg img.mo-ld.is-ld { opacity: 1; }
+.fg-plane[data-depth=".5"] img { filter: brightness(.62) saturate(.8); }
+.fg-plane[data-depth=".25"] img { filter: brightness(.48) saturate(.75); }
+.fg-plane[data-depth="1"] img:nth-child(2), .fg-plane[data-depth=".5"] img:nth-child(1) { transition-delay: .2s; }
+.fg-plane[data-depth=".5"] img:nth-child(2), .fg-plane[data-depth=".25"] img { transition-delay: .45s; }
+.fg-plane[data-depth=".5"] img:nth-child(3), .fg-plane[data-depth="1"] img:nth-child(3) { transition-delay: .7s; }
+@media (max-width: 768px) {
+  .fg img { transform: scale(.82); transform-origin: center; }
+}
